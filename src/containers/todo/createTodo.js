@@ -4,7 +4,6 @@ import { compose } from 'redux';
 
 import {
   CREATE_TODO_REQUEST,
-  // READ_TODOS_REQUEST
 } from '../../constants';
 
 class CreateTodo extends React.Component {
@@ -25,21 +24,23 @@ class CreateTodo extends React.Component {
         <form>
           <input
             type="text"
+            value={this.state.currentTodo}
             onChange={
               (event) => this.handleValueChange(event)
             } />
           <button
-            type="button"
-            onClick={async () => {
-              // event.preventDefault();
+            type="submit"
+            onClick={ (event) => {
               const todoObject = {
                 task: this.state.currentTodo,
                 toggle: false
               };
-              await this.props.onRequestToCreateTodo(todoObject);
-              // await this.props.onRequestTodos();
-              // setTimeout(() => console.log(this.props), 1000);
-            }}>
+              event.preventDefault();
+              this.props.onRequestToCreateTodo(todoObject);
+              setTimeout(
+                () => this.setState({ currentTodo: '' }), 0);
+            }}
+            disabled={this.state.currentTodo.length === 0}>
             Create
           </button>
         </form>
@@ -56,9 +57,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onRequestToCreateTodo: (todo) =>
+    onRequestToCreateTodo: todo =>
       dispatch({ type: CREATE_TODO_REQUEST, payload: todo }),
-    // onRequestTodos: () => dispatch({ type: READ_TODOS_REQUEST })
   }
 }
 
