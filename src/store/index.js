@@ -5,13 +5,12 @@ import {
   compose
 } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { todoReducer } from '../reducers';
+import { todo, status } from '../reducers';
 import { rootSaga } from '../sagas';
-// import { createTodoWatcherSaga } from '../sagas/todo';
-// import { readTodosWatcherSaga } from '../sagas/todo';
 
 const reducers = combineReducers({
-  todo: todoReducer
+  todo,
+  status,
 });
 const reduxDevTool = window.__REDUX_DEVTOOLS_EXTENSION__ &&
   window.__REDUX_DEVTOOLS_EXTENSION__();
@@ -24,7 +23,4 @@ const store = createStore(
 );
 
 sagaMiddleware.run(rootSaga);
-// sagaMiddleware.run(readTodosWatcherSaga);
-// sagaMiddleware.run(createTodoWatcherSaga);
-
 export default store;

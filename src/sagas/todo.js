@@ -1,4 +1,4 @@
-import { takeLatest, put, call, all } from 'redux-saga/effects';
+import { takeLatest, put, call } from 'redux-saga/effects';
 import { createTodo, readTodos, updateTodo, deleteTodo } from '../apis';
 import {
   CREATE_TODO_REQUEST,
@@ -14,6 +14,7 @@ import {
   UPDATE_TODO_FAILURE,
   DELETE_TODO_FAILURE,
 } from '../constants';
+import { disableButton } from '../actions';
 
 // create todos watcher + worker sagas
 export function* createTodoWatcherSaga() {
@@ -29,6 +30,8 @@ function* createTodoWorkerSaga(action) {
     yield put({ type: READ_TODOS_SUCCESS, todos });
   }catch(error) {
     yield put({ type: CREATE_TODO_FAILURE, error });
+  } finally {
+    yield put(disableButton(false));
   }
 }
 
@@ -71,22 +74,7 @@ function* deleteTodosWorkerSaga(action) {
   try {
     yield call(deleteTodo, action.id);
     yield put({ type: DELETE_TODO_SUCCESS, id: action.id });
-    console.log('here?1 ');
-    // const newResponse = yield call(readTodos);
-    // const todos = newResponse.data;
-    // console.log('after delete new todos ', todos);
-    // yield put({ type: READ_TODOS_SUCCESS, todos });
   }catch(error) {
     yield put({ type: DELETE_TODO_FAILURE, error });
   }
-}
-
-// root saga
-export function* rootSaga() {
-  yield all([
-    readTodosWatcherSaga(),
-    createTodoWatcherSaga(),
-    updateTodosWatcherSaga(),
-    deleteTodosWatcherSaga()
-  ]);
 }
