@@ -16,9 +16,9 @@
       "toggle": false
     },
     {
-      "task": "look look",
-      "toggle": false,
-      "id": 4
+      "id": 4,
+      "task": "look look wawawa",
+      "toggle": "on"
     },
     {
       "task": "hao ba",
@@ -59,6 +59,11 @@
       "task": "task 0003",
       "toggle": false,
       "id": 14
+    },
+    {
+      "task": "kun bu 000101001",
+      "toggle": false,
+      "id": 15
     }
   ]
 }
