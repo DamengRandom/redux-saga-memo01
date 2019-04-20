@@ -6,6 +6,7 @@ import { TodoItem } from './todoItem';
 class TodoList extends React.Component {
   componentDidMount() {
     this.props.onRequestTodos();
+    // this.props.onRequestStatus();
   }
   render() {
     return (
@@ -25,16 +26,19 @@ class TodoList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  // console.log('state returned', state);
   return {
     fetching: state.todo.fetching,
     error: state.todo.error,
-    todos: state.todo.todos
+    todos: state.todo.todos,
+    // status: state.status.status,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onRequestTodos: () => dispatch({ type: READ_TODOS_REQUEST })
+    onRequestTodos: () => dispatch({ type: READ_TODOS_REQUEST }),
+    // onRequestStatus: () => dispatch({ type: READ_STATUS_REQUEST })
   }
 }
 

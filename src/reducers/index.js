@@ -1,1 +1,2 @@
-export { todoReducer } from './todo';
+export { todoReducer as todo } from './todo';
+export { statusReducer as status } from './status';
